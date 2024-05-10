@@ -2,7 +2,7 @@ my_list = ["blue", "orange", "black", "green", "yellow"]
 print(my_list)
 print(my_list[0])
 print(my_list[-1])
-print(my_list[3:6])
+print(my_list[2:5])
 my_list[2] = "gray"
 print(my_list)
 

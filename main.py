@@ -1,8 +1,8 @@
-def test(a, b):
+def test():
+    a = 1
+    b = 2
     print(a, b)
-
-
-test(1, 2)
+test()
 
 
 def test_2(a, b, c):

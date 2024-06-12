@@ -4,7 +4,7 @@ class Building:
         self.buildingType = str_
 
     def __eq__(self, other):
-        return self.numberOfFloors == self.buildingType
+        return self.numberOfFloors == other.numberOfFloors and self.buildingType == other.buildingType
 
 
 test = Building(1, 'test')

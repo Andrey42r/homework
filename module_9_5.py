@@ -3,27 +3,29 @@ class StepValueError(ValueError):
 
 
 class Iterator:
-    start = int
-    stop = int
-    step = int
-    pointer = start
-
     def __init__(self, start, stop, step=1):
+        if step == 0:
+            raise StepValueError('шаг не может быть равен 0')
         self.start = start
         self.stop = stop
         self.step = step
-        try:
-            self.step != 0
-        except StepValueError:
-            print('шаг не может быть равен 0')
+        self.pointer = 0
+
 
     def __iter__(self):
         self.pointer = self.start
+        return self
 
     def __next__(self):
+        if self.step > 0:
+            if self.pointer > self.stop:
+                raise StopIteration()
+        else:
+            if self.pointer < self.stop:
+                raise StopIteration()
+        res = self.pointer
         self.pointer += self.step
-        if self.stop > self.pointer < self.stop:
-            return
+        return res
 
 
 try:

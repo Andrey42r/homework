@@ -1,89 +1,85 @@
-import time
+from time import sleep
 
 
 class User:
     def __init__(self, nickname: str, password: int, age: int):
         self.nickname = nickname  #имя
-        self.password = password  #пароль
+        self.password = hash(password)  #пароль
         self.age = age  #возраст
 
 
 class Video:
-    title: str
-
     def __init__(self, title: str, duration: int, adult_mode: bool = False):
         self.title = title  #заголовок
-        self.duration = duration  #продолжительность (сек)
-        self.time_now = 0  #секунда остановки (изначально 0)
-        self.adult_mode = adult_mode  #ограничение по возрасту (по умолчанию False)
+        self.duration = duration  #продолжительность видео в секундах
+        self.time_now = 0  #секунда остановки, изначально равна нулю
+        self.adult_mode = adult_mode  #ограничение по возрасту, изначально False
 
-    def __eq__(self, other):
-        return self.title == other.title
-
-    # def __contains__(self, item):
-    #     return item if self.title
 
 class UrTube:
     def __init__(self):
-        self.users = []  #список объектов User
-        self.videos = []  #список объектов Video
+        self.users = []  #список пользователей
+        self.videos = []  #список видео
         self.current_user = None  #текущий пользователь
 
-    def log_in(self, login: str, password: str, current_user):
-        for user in self.users:
-            if login == user.nickname and password == user.password:
-                self.current_user = user
-
+    def log_in(self, nickname: str, password: str, current_user):
+        for user in self.users:  #перебираем пользователей в списке self.users
+            if nickname == user.nickname and password == user.password:  #сравниваем ники и пароли в UrTube и User
+                self.current_user = user  #при совпадении ника и пароля текущий пользователь меняется меняется на user
 
     def register(self, nickname: str, password: str, age: int):
-        password = hash(password)
-        for user in self.users:
-            if nickname == user.nickname:
-                print(f"Пользователь {nickname} уже существует")
+        password = hash(password)  #Хешируем пароль, значит его нельзя изменить
+        for user in self.users:  #перебираем пользователей в списке self.users
+            if nickname == user.nickname:  #если ник существует - пишем что пользователь уже зарегистрирован
+                print(f'Пользователь {nickname} уже зарегистрирован!')
                 return
-        new_user = User(nickname, password, age)
-        self.users.append(new_user)
-        self.current_user = new_user
-        print(f'Пользователь {nickname} зарегистрирован')
+        new_user = User(nickname, password, age)  #новый пользователь
+        self.users.append(new_user)  #добавляем нового пользователя в список self.users
+        self.current_user = new_user  #текущий пользователь меняется на new_user
+        print(f'Пользователь {nickname} зарегистрирован!')
 
     def log_out(self):
-        self.current_user = None
+        self.current_user = None  #метод, скидывающий текущего пользователя
 
     def add(self, *args):
-        for movie in args:
-            if movie not in self.videos:
+        for movie in args:  #перебираем видео в бесконечном списке
+            if movie not in self.videos:  #если видео нет в self.videos, то добавляем его в список
                 self.videos.append(movie)
 
-    def get_videos(self, search_keyword):
-        keyword_lower = search_keyword.lower()
-        matching_videos = [video.title for video in self.videos if keyword_lower in video.title.lower()]
-        print(matching_videos)
-        return matching_videos
 
-    def watch_video(self, video_title):
-        if self.current_user is None:
-            print('Войдите в аккаунт чтобы смотреть видео')
+    def get_videos(self, search_keyword):
+        list_film = []
+        for video in self.videos:
+            if search_keyword.upper() in video.title.upper():
+                list_film.append(video.title)
+        return list_film
+
+    def watch_video(self, videos_title):
+        if self.current_user is None:  #если текущий пользователь None, то видео не запускается
+            print('Для просмотра видео нужно авторизироваться!')
             return
 
-        found_video = None
-        for video in self.videos:
-            if video.title.lower() == video_title.lower():
-                found_video = video
+        found_video = None  #текущее видео
+        for video in self.videos:  #перебираем видео в списке self.videos
+            if video.title.lower() == videos_title.lower():  #проверяем точное совпадение заголовка
+                found_video = video  #если заголовок совпал то текущее видео меняется на video
 
-        if found_video:
-            if self.current_user.age < 18 and found_video.adult_mode:
-                print('Вам нет 18-ти, пожалуйста покиньте страницу')
+        if found_video:  #если заголовок совпал, проверяем возраст
+            if self.current_user.age < 18 and found_video.adult_mode:  #проверяем возраст юзера, должен быть 18+
+                print('Вам нет 18-ти лет, пожалуйста покиньте страницу')
                 return
 
-            print(f'Просмотр видео {found_video.title}', found_video.duration)
-            for second in range(0, found_video.duration):
-                found_video.time_now = second
-                print(f'Просмотр на {found_video.time_now} секунде')
-                # t.sleep(1)
-            print('Конец просмотра')
-            found_video.time_now = 0
-        else:
-            print('Видео не найдено')
+
+            for i in range(video.duration):
+                print(f'{i + 1}', end='-')
+                sleep(1)
+                video.time_now += 1
+            video.time_now = 0
+            print('Конец видео')
+            sleep(2)
+        # else:
+        #     print('Видео не найдено')
+
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)

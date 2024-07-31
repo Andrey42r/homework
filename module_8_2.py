@@ -5,6 +5,7 @@ def personal_sum(numbers):
         for i in numbers:
             try:
                 result += i
+                incorrect_data += 1
             except TypeError:
                 incorrect_data += 1
                 print(f'Некорректный тип данных для подсчёта суммы - {i}')

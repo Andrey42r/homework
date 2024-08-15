@@ -6,7 +6,7 @@ def introspection_info(obj):
     _dir = dir(obj)
     _method = inspect.ismethod(obj)
     _module = inspect.getmodule(obj)
-    return _type, _dir, _module, _method
+    print(f'type: {_type}, attributes: {_dir}, methods: {_method}, module: {_module}')
 
 
 number_info = introspection_info(42)

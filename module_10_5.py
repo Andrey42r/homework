@@ -15,15 +15,15 @@ def read_info(name):
 if __name__ == '__main__':
     filenames = [f'name.txt' for number in range(1, 5)]
 
-#Линейный вызов
-start_time = time.time()
-for filename in filenames:
-    read_info(filename)
-print(f"Линейный вызов: {time.time() - start_time} секунд")
+    #Линейный вызов
+    start_time = time.time()
+    for filename in filenames:
+        read_info(filename)
+    print(f"{time.time() - start_time} (линейный)")
 
 
-# Многопроцессный вызов
-start_time = time.time()
-with Pool(processes=4) as pool:
-    pool.map(read_info, filenames)
-print(f"Многопроцессный: {time.time() - start_time} секунд")
+    # Многопроцессный вызов
+    start_time = time.time()
+    with Pool(processes=2) as pool:
+        pool.map(read_info, filenames)
+    print(f"{time.time() - start_time} (многопроцессный)")

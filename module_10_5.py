@@ -3,7 +3,6 @@ from multiprocessing import Pool
 
 def read_info(name):
     all_data = []
-    name = 'name.txt'
     with open(name, 'r') as file:
         while True:
             first_line = file.readline()

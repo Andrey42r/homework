@@ -24,7 +24,7 @@ dom.go_to()
 def introspection_info(obj):
     _type = type(obj)
     _dir = obj.__dict__
-    _method = inspect.ismethod(obj)
+    _method = dir(obj)
     _module = inspect.getmodule(obj)
     print(f'type: {_type}, attributes: {_dir}, methods: {_method}, module: {_module}')
 

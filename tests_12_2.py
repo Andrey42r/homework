@@ -1,3 +1,4 @@
+import unittest
 from unittest import TestCase
 
 
@@ -49,30 +50,37 @@ class TournamentTest(TestCase):
     def setUpClass(cls):
         cls.all_results = []
 
+    @unittest.skipIf(True, 'Тесты в этом кейсе заморожены')
     def setUp(self):
         self.run_1 = Runner('Усейн', 10)
         self.run_2 = Runner('Андрей', 9)
         self.run_3 = Runner('Ник', 3)
 
+    @unittest.skipIf(True, 'Тесты в этом кейсе заморожены')
     def test_run_1_tournament(self):
         tournament = Tournament(90, self.run_1, self.run_3)
         results = tournament.start()
         TournamentTest.all_results.append(results)
         self.assertTrue(results[2] == 'Ник')
 
+    @unittest.skipIf(True, 'Тесты в этом кейсе заморожены')
     def test_run_2_tournament(self):
         tournament = Tournament(90, self.run_2, self.run_3)
         results = tournament.start()
         TournamentTest.all_results.append(results)
         self.assertTrue(results[2] == 'Ник')
 
+    @unittest.skipIf(True, 'Тесты в этом кейсе заморожены')
     def test_run_3_tournament(self):
         tournament = Tournament(90, self.run_1, self.run_2, self.run_3)
         results = tournament.start()
         TournamentTest.all_results.append(results)
         self.assertTrue(results[3] == 'Ник')
 
+    is_frozen = True
+
     @classmethod
     def tearDownClass(cls):
         for i, elem in enumerate(cls.all_results):
             print(f'{i + 1}. {elem}')
+

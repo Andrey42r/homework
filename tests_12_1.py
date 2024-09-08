@@ -17,7 +17,6 @@ class Runner:
         return self.name
 
 
-
 class RunnerTest(TestCase):
     def test_walk(self):
         run_1 = Runner('Tesla')
@@ -39,5 +38,4 @@ class RunnerTest(TestCase):
             run_4.walk()
         self.assertNotEqual(run_3.distance, run_4.distance)
 
-if __name__ == "__main__":
-    unittest.main()
+    is_frozen = False

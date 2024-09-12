@@ -10,7 +10,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 logging.basicConfig(level=logging.INFO)
 
-api = '7081862503:AAE9lm1sXZcOYHZFSqKH0oJnD2lIcUpG9-c'
+api = '123'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 

@@ -1,12 +1,22 @@
-def test():
-    a = 1
-    b = 2
-    print(a, b)
-test()
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def welcome() -> dict:
+    return {"message": "Главная страница"}
+
+@app.get("/user/admin")
+async def admin() -> dict:
+    return {"message": "Вы вошли как администратор"}
+
+@app.get("/user/{user_id}")
+async def user_ID(user_id: str) -> dict:
+    return {"message": f"Вы вошли как пользователь № {user_id}"}
+
+@app.get("/user")
+async def user(username: str, age: int) -> dict:
+    return {"Имя": username, "Возраст": age}
 
 
-def test_2(a, b, c):
-    print(a, b, c)
 
-
-test_2(1, 2, 3)
